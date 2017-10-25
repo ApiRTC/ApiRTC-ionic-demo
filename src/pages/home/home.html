@@ -1,0 +1,22 @@
+
+<ion-content padding no-bounce>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-input type="text" value=""  placeholder="Enter destination ID"  [(ngModel)]="distantNumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button ion-button full large (click)="pushCall($event)" [ngStyle]="{'background-color': buttonColor}">{{buttonLabel}}</button>
+    </ion-item>
+
+  </ion-list>
+
+  <div>
+    <div style="text-align: center">{{infoLabel}}</div>
+    <div id="remote" style="width:100%;"></div>
+    <div id="mini"></div>
+  </div>
+
+
+</ion-content>
