@@ -7,7 +7,7 @@ To build this example, you first need to add a target platform and a few plugins
 ```
 git clone https://github.com/apizee/ApiRTC-ionic.git
 cd ApiRTC-ionic
-npm install xcode
+npm install xcode 
 ionic build
 ionic cordova platform remove ios
 chmod +x plugins/cordova-plugin-iosrtc/extra/hooks/iosrtc-swift-support.js
