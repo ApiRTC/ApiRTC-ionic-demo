@@ -92,6 +92,6 @@ cordova plugin remove cordova-plugin-crosswalk-webview
 
 ## Try your project
 
-In order to test, open [this link](https://cloud.apizee.com/apiRTC/Samples/apiPhone-level2.html) on your computer browser:
+In order to test, open [this link](https://apirtc.com/tutos/Mobile/index.html) on your computer browser:
 
 You will be able to establish a webRTC call between your app and your computer using the number that has been automatically assigned to your apiRTC Client.
