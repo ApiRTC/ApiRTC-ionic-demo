@@ -21,7 +21,7 @@ ionic cordova run ios
 
 ```
 
-Open [this link](https://apirtc.com/tutos/Mobile/index.html) with Chrome to exchange with your mobile over webrtc
+Open [this link](https://dev.apirtc.com/tutos/Mobile/index.html) with Chrome to exchange with your mobile over webrtc
 
 ## Requirements
 
@@ -56,7 +56,7 @@ Go to Build Settings, look under Deployment Info, change iOS Deployment Target t
 Go to Build Settings, look under “Swift Compiler – Code Generation” (near the bottom), edit the setting “Objective-C Bridging Header” and enter ../../plugins/cordova-plugin-iosrtc/src/cordova-plugin-iosrtc-Bridging-Header.h in debug and release
 
 
-**Build error** 
+**Build error**
 
 You must rebuild it with bitcode enabled (Xcode setting ENABLE_BITCODE), obtain an updated library from the vendor, or disable bitcode for this target. for architecture arm64 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 
@@ -92,6 +92,6 @@ cordova plugin remove cordova-plugin-crosswalk-webview
 
 ## Try your project
 
-In order to test, open [this link](https://apirtc.com/tutos/Mobile/index.html) on your computer browser:
+In order to test, open [this link](https://dev.apirtc.com/tutos/Mobile/index.html) on your computer browser:
 
 You will be able to establish a webRTC call between your app and your computer using the number that has been automatically assigned to your apiRTC Client.
