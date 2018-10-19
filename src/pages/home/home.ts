@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
-import { Platform } from 'ionic-angular';
+import { NavController, AlertController, Platform } from 'ionic-angular';
+import { ApirtcProvider } from '../../providers/apirtc/apirtc';
 
 declare var iosrtc;
-declare var apiRTC;
 declare var apiCC;
 
 const STATE_WAIT = "wait";
@@ -23,57 +21,46 @@ const COLOR_HANGOUT = "#d9534f";
 export class HomePage {
 
   distantNumber:any;
-  webRTCClient:any;
   infoLabel:any;
   buttonLabel:any;
   buttonColor:any;
   state:any;
+  
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public platform: Platform, public apirtcProvider:ApirtcProvider) {
+    this.refreshVideoView = this.refreshVideoView.bind(this);
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public platform: Platform) {
-
-    this.incomingCallHandler = this.incomingCallHandler.bind(this);
-    this.userMediaErrorHandler = this.userMediaErrorHandler.bind(this);
+    this.sessionReadyHandler = this.sessionReadyHandler.bind(this);
+    this.incomingCallHandler.bind(this);
+    this.incomingCallHandler = this.userMediaErrorHandler.bind(this);
     this.remoteStreamAddedHandler = this.remoteStreamAddedHandler.bind(this);
     this.hangupHandler = this.hangupHandler.bind(this);
-    this.refreshVideoView = this.refreshVideoView.bind(this);
-    this.sessionReadyHandler = this.sessionReadyHandler.bind(this);
-    this.userMediaSuccessHandler = this.userMediaSuccessHandler.bind(this);
-    apiRTC.init({
-      onReady: this.sessionReadyHandler,
-      apiKey: "myDemoApiKey"
-    });
-
-    this.infoLabel= "Registration Ongoing...";
-    this.buttonLabel = LABEL_CALL;
-    this.buttonColor = COLOR_CALL;
-    this.state = STATE_WAIT;
+    this.userMediaSuccessHandler =this.userMediaSuccessHandler.bind(this);
+    apirtcProvider.events.subscribe('apiRtcSessionReady',this.sessionReadyHandler);
+    apirtcProvider.events.subscribe('incomingCallHandler',this.incomingCallHandler);
+    apirtcProvider.events.subscribe('userMediaErrorHandler',this.userMediaErrorHandler);
+    apirtcProvider.events.subscribe('remoteStreamAddedHandler',this.remoteStreamAddedHandler);
+    apirtcProvider.events.subscribe('hangupHandler',this.hangupHandler);
+    apirtcProvider.events.subscribe('userMediaSuccessHandler',this.userMediaSuccessHandler);
   }
-
+  sessionReadyHandler(){
+    this.buttonColor = COLOR_CALL;
+    this.buttonLabel = LABEL_CALL;
+    this.infoLabel = "Your local ID : "+apiCC.session.apiCCId;
+  }
   /**
    * Call Action
    */
-  pushCall(event) {
+  pushCall() {
     console.log("Push, callState="+this.state);
     if(this.distantNumber && this.state == STATE_WAIT) {
       setTimeout(this.refreshVideoView,4000);
-      this.webRTCClient.call(this.distantNumber);
+      this.apirtcProvider.getWebRtcClient().call(this.distantNumber);
     } else if(this.state == STATE_INCALL) {
       this.state = STATE_WAIT;
       this.buttonColor = COLOR_CALL;
       this.buttonLabel = LABEL_CALL;
-      this.webRTCClient.hangUp();
+      this.apirtcProvider.getWebRtcClient().hangUp();
     }
-  }
-
-  sessionReadyHandler(e) {
-    console.log("sessionReadyHandler");
-    apiRTC.addEventListener("incomingCall", this.incomingCallHandler);
-    apiRTC.addEventListener("userMediaError", this.userMediaErrorHandler);
-    apiRTC.addEventListener("remoteStreamAdded", this.remoteStreamAddedHandler);
-    apiRTC.addEventListener("userMediaSuccess", this.userMediaSuccessHandler);
-    apiRTC.addEventListener("hangup", this.hangupHandler);
-    this.webRTCClient = apiCC.session.createWebRTCClient({});
-    this.infoLabel = "Your local ID : "+apiCC.session.apiCCId;
   }
 
   refreshVideoView() {
@@ -102,7 +89,7 @@ export class HomePage {
 
   userMediaSuccessHandler(e) {
     console.log("userMediaSuccessHandler",e);
-    this.webRTCClient.addStreamInDiv(
+    this.apirtcProvider.getWebRtcClient().addStreamInDiv(
       e.detail.stream,
       e.detail.callType,
       "mini",
@@ -121,7 +108,7 @@ export class HomePage {
     this.buttonColor = COLOR_HANGOUT;
     this.buttonLabel = LABEL_HANGOUT;
 
-    this.webRTCClient.addStreamInDiv(
+    this.apirtcProvider.getWebRtcClient().addStreamInDiv(
       e.detail.stream,
       e.detail.callType,
       "remote",
@@ -134,7 +121,7 @@ export class HomePage {
   }
 
   initMediaElementState(callId) {
-    this.webRTCClient.removeElementFromDiv('mini', 'miniElt-' + callId);
-    this.webRTCClient.removeElementFromDiv('remote', 'remoteElt-' + callId);
+    this.apirtcProvider.getWebRtcClient().removeElementFromDiv('mini', 'miniElt-' + callId);
+    this.apirtcProvider.getWebRtcClient().removeElementFromDiv('remote', 'remoteElt-' + callId);
   }
 }
