@@ -126,7 +126,7 @@ export class HomePage {
       e.detail.callType,
       "remote",
       'remoteElt-' + e.detail.callId,
-      {},
+      {}, 
       false
     );
 

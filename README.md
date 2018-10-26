@@ -35,7 +35,7 @@ In order to make this application run into a iOS application some requirements m
 * Xcode >= 7.2.1
 * iOS >= 9 (run on lower versions at your own risk, but don't report issues)
 * `cordova-ios` 4.X
-* Android >= 6
+* Android >= 6 
 
 ## ApiRTC key
 For this demo we use the Api key "myDemoApiKey". Please register on [our website](https://apirtc.com/get-key/) to get your private api key.
