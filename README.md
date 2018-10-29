@@ -1,5 +1,5 @@
 # ApiRTC on Ionic
-This tutorial explains you how to use apiRTC and to build an application for iOS and/or Android.
+This tutorial explains you how to use apiRTC and to build an application for iOS.
 
 First of all you need to install Ionic. Please follow [this link](http://ionicframework.com/getting-started/) to get started with ionic
 
@@ -10,20 +10,15 @@ cd ApiRTC-ionic
 npm install xcode
 ionic build
 ionic cordova platform remove ios
-ionic cordova platform add ios
 chmod +x plugins/cordova-plugin-iosrtc/extra/hooks/iosrtc-swift-support.js
-chmod +x clean.sh
-npm install
-
+ionic cordova platform add ios
 ```
 
 Then, run an emulator like this :
 ```
 ionic cordova build ios
-ionic cordova build android
-
 ionic cordova run ios
-ionic cordova run android
+
 ```
 
 Open [this link](https://dev.apirtc.com/tutos/Mobile/index.html) with Chrome to exchange with your mobile over webrtc
@@ -35,14 +30,9 @@ In order to make this application run into a iOS application some requirements m
 * Xcode >= 7.2.1
 * iOS >= 9 (run on lower versions at your own risk, but don't report issues)
 * `cordova-ios` 4.X
-* Android >= 6 
 
 ## ApiRTC key
 For this demo we use the Api key "myDemoApiKey". Please register on [our website](https://apirtc.com/get-key/) to get your private api key.
-
-## Clean build
-To clean the build and clean NPM cache
-./clean.sh
 
 ## Building errors on iOS
 To avoid errors, we use the plugin cordova-custom-config to integrate all Xcode configuration. But you can find solutions here:

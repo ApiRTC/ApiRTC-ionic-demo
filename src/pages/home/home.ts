@@ -96,7 +96,6 @@ export class HomePage {
     this.state = STATE_WAIT;
     this.buttonColor = COLOR_CALL;
     this.buttonLabel = LABEL_CALL;
-
     this.initMediaElementState(e.detail.callId);
   }
 
@@ -120,17 +119,15 @@ export class HomePage {
     this.state = STATE_INCALL;
     this.buttonColor = COLOR_HANGOUT;
     this.buttonLabel = LABEL_HANGOUT;
-
     this.webRTCClient.addStreamInDiv(
       e.detail.stream,
       e.detail.callType,
       "remote",
       'remoteElt-' + e.detail.callId,
-      {}, 
+      {},
       false
     );
-
-    setTimeout(this.refreshVideoView,100);
+    setTimeout(this.refreshVideoView,1000);
   }
 
   initMediaElementState(callId) {
