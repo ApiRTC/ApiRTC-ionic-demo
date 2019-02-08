@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ByePage } from '../pages/bye/bye';
 import { ApirtcProvider } from '../providers/apirtc/apirtc';
-
+declare var AudioToggle;
 @Component({
   templateUrl: 'app.html'
 })
@@ -20,6 +20,7 @@ export class MyApp {
     apirtcProvider.events.subscribe('incomingCallHandler',this.incomingCallHandler);
     apirtcProvider.events.subscribe('hangupHandler',this.hangupHandler);
     platform.ready().then(() => {
+      console.info("AUDIO TOGGLE",AudioToggle);
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();

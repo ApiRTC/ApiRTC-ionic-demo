@@ -28,6 +28,7 @@
         "android-camera-permission": "^1.0.0",
         "cordova-custom-config": "^4.0.2",
         "cordova-ios": "4.5.5",
+        "cordova-plugin-audiotoggle": "^1.0.3",
         "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-console": "^1.1.0",
         "cordova-plugin-device": "^1.1.7",
@@ -66,7 +67,8 @@
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-statusbar": {},
             "cordova-plugin-whitelist": {},
-            "ionic-plugin-keyboard": {}
+            "ionic-plugin-keyboard": {},
+            "cordova-plugin-audiotoggle": {}
         },
         "platforms": [
             "ios"

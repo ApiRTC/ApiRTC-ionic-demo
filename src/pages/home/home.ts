@@ -4,6 +4,7 @@ import { ApirtcProvider } from '../../providers/apirtc/apirtc';
 
 declare var iosrtc;
 declare var apiCC;
+declare var AudioToggle;
 
 const STATE_WAIT = "wait";
 const STATE_INCALL = "incall";
@@ -107,7 +108,7 @@ export class HomePage {
     this.state = STATE_INCALL;
     this.buttonColor = COLOR_HANGOUT;
     this.buttonLabel = LABEL_HANGOUT;
-
+    
     this.apirtcProvider.getWebRtcClient().addStreamInDiv(
       e.detail.stream,
       e.detail.callType,
@@ -116,7 +117,7 @@ export class HomePage {
       {width : "100%"},
       false
     );
-
+    AudioToggle.setAudioMode(AudioToggle.EARPIECE);
     setTimeout(this.refreshVideoView,100);
   }
 
