@@ -33,7 +33,7 @@
         "cordova-plugin-console": "^1.1.0",
         "cordova-plugin-device": "^1.1.7",
         "cordova-plugin-file": "^4.3.3",
-        "cordova-plugin-ionic-webview": "^1.2.1",
+        "cordova-plugin-ionic-webview": "^2.2.0",
         "cordova-plugin-iosrtc": "^6.0.5",
         "cordova-plugin-media": "^3.0.1",
         "cordova-plugin-splashscreen": "^4.0.3",
