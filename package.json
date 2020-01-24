@@ -27,15 +27,14 @@
         "@ionic/storage": "2.0.1",
         "android-camera-permission": "^1.0.0",
         "cordova-android": "6.4.0",
-        "cordova-custom-config": "^4.0.2",
-        "cordova-ios": "4.5.5",
+        "cordova-ios": "5.1.1",
         "cordova-plugin-android-permissions": "^0.10.0",
         "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-console": "^1.1.0",
         "cordova-plugin-device": "^1.1.7",
         "cordova-plugin-file": "^4.3.3",
         "cordova-plugin-ionic-webview": "^1.2.1",
-        "cordova-plugin-iosrtc": "^4.0.1",
+        "cordova-plugin-iosrtc": "^6.0.5",
         "cordova-plugin-media": "^3.0.1",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "git+https://github.com/apache/cordova-plugin-statusbar.git",
@@ -45,7 +44,6 @@
         "ionicons": "3.0.0",
         "rxjs": "5.4.3",
         "sw-toolbox": "3.6.0",
-        "xcode": "^1.0.0",
         "zone.js": "0.8.18"
     },
     "devDependencies": {
@@ -56,9 +54,10 @@
     "cordova": {
         "plugins": {
             "cordova-plugin-console": {},
-            "cordova-custom-config": {},
             "cordova-plugin-device": {},
-            "cordova-plugin-media": {},
+            "cordova-plugin-media": {
+                "MICROPHONE_USAGE_DESCRIPTION": " "
+            },
             "android-camera-permission": {},
             "cordova-plugin-ionic-webview": {},
             "cordova-plugin-splashscreen": {},
@@ -69,8 +68,8 @@
             "cordova-plugin-iosrtc": {}
         },
         "platforms": [
-            "ios",
-            "android"
+            "android",
+            "ios"
         ]
     }
 }
