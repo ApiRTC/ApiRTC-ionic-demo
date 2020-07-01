@@ -34,6 +34,6 @@ You can test this app with our [web P2P call sample](https://dev.apirtc.com/demo
 
 The app may work on lower versions, but don't report issues.
 
-# ApiRTC key
+## ApiRTC key
 
 For this demo we use `myDemoApiKey` api key. Please register [on our website](https://cloud.apizee.com) to get your private api key.
