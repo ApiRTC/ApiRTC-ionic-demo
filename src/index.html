@@ -1,109 +1,90 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Ionic App</title>
-  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="msapplication-tap-highlight" content="no">
+    <meta charset="utf-8" />
+    <title>Ionic App</title>
 
-  <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#4e8ef7">
+    <base href="/" />
 
-  <!-- add to homescreen for ios -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="color-scheme" content="light dark" />
+    <meta name="viewport"
+        content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
 
-  <!-- cordova.js required for cordova apps -->
-  <script src="cordova.js"></script>
+    <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
 
-  <link href="build/main.css" rel="stylesheet">
+    <meta http-equiv="Content-Security-Policy" content=" media-src * blob: ; script-src * 'self' 'unsafe-inline' 'unsafe-eval'; connect-src * blob: http: https: 'self' 'unsafe-inline' 'unsafe-eval' http://*/* https://*/* https://*:* ">
 
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-  <style>
-    .remote video {
-      width: 100% !important;
-    }
-  </style>
+    <script>
+        let iosrtc = null;
+        document.addEventListener('deviceready', function () {
+            if ((typeof device !== 'undefined') && device.platform == 'iOS') {
+                cordova.plugins.iosrtc.registerGlobals();
+                iosrtc = cordova.plugins.iosrtc;
+            }
 
-  <script src="https://cloud.apizee.com/libs/jquery-1.9.0.min.js"></script>
-  <script src="https://cloud.apizee.com/apiRTC/v4.1/apiRTC-latest.min.debug.js"></script>
-  <script>
-    function checkPermissionCallback(status, perm) {
-        var permissions = cordova.plugins.permissions;
-        if (!status.hasPermission) {
-            var errorCallback = function() {
-                console.warn('permission is not turned on', perm);
-            };
-            permissions.requestPermission(
-                perm,
-                function(status) {
-                    if (!status.hasPermission) {
-                        errorCallback();
-                    }
-                },
-                errorCallback
-            );
-        }
-    }
-    var iosrtc = null;
-    document.addEventListener("deviceready", function() {
-      if ((typeof device !== "undefined") && device.platform == 'iOS'){
-        cordova.plugins.iosrtc.registerGlobals();
-        iosrtc = cordova.plugins.iosrtc;
-      }
-    }, false);
-    if (cordova.plugins !== null && typeof cordova.plugins.permissions !== 'undefined' && cordova.plugins.permissions) {
-            var permissions = cordova.plugins.permissions;
-            permissions.hasPermission(
-                permissions.CAMERA,
-                function(status) {
-                    checkPermissionCallback(status, permissions.CAMERA);
-                },
-                null
-            );
-            permissions.hasPermission(
-                permissions.RECORD_AUDIO,
-                function(status) {
-                    checkPermissionCallback(status, permissions.RECORD_AUDIO);
-                },
-                null
-            );
+            function checkPermissionCallback(status, perm) {
+                var permissions = cordova.plugins.permissions;
+                if (!status.hasPermission) {
+                    var errorCallback = function () {
+                        console.warn('permission is not turned on', perm);
+                    };
+                    permissions.requestPermission(
+                        perm,
+                        function (status) {
+                            if (!status.hasPermission) {
+                                errorCallback();
+                            }
+                        },
+                        errorCallback
+                    );
+                }
+            }
 
-            permissions.hasPermission(
-                permissions.READ_EXTERNAL_STORAGE,
-                function(status) {
-                    checkPermissionCallback(status, permissions.READ_EXTERNAL_STORAGE);
-                },
-                null
-            );
-            permissions.hasPermission(
-                permissions.ACCESS_NETWORK_STATE,
-                function(status) {
-                    checkPermissionCallback(status, permissions.ACCESS_NETWORK_STATE);
-                },
-                null
-            );
-        }    
-  </script>
+            if (cordova.plugins !== null && typeof cordova.plugins.permissions !== 'undefined' && cordova.plugins.permissions) {
+                var permissions = cordova.plugins.permissions;
+                permissions.hasPermission(
+                    permissions.CAMERA,
+                    function (status) {
+                        checkPermissionCallback(status, permissions.CAMERA);
+                    },
+                    null
+                );
+                permissions.hasPermission(
+                    permissions.RECORD_AUDIO,
+                    function (status) {
+                        checkPermissionCallback(status, permissions.RECORD_AUDIO);
+                    },
+                    null
+                );
 
+                permissions.hasPermission(
+                    permissions.READ_EXTERNAL_STORAGE,
+                    function (status) {
+                        checkPermissionCallback(status, permissions.READ_EXTERNAL_STORAGE);
+                    },
+                    null
+                );
+                permissions.hasPermission(
+                    permissions.ACCESS_NETWORK_STATE,
+                    function (status) {
+                        checkPermissionCallback(status, permissions.ACCESS_NETWORK_STATE);
+                    },
+                    null
+                );
+            }
+        }, false);
+
+    </script>
 </head>
+
 <body>
-
-  <!-- Ionic's root component and where the app will load -->
-  <ion-app></ion-app>
-
-  <!-- The polyfills js is generated during the build process -->
-  <script src="build/polyfills.js"></script>
-
-  <!-- The vendor js is generated during the build process
-       It contains all of the dependencies in node_modules -->
-  <script src="build/vendor.js"></script>
-
-  <!-- The main bundle js is generated during the build process -->
-  <script src="build/main.js"></script>
-
+    <app-root></app-root>
 </body>
+
 </html>
