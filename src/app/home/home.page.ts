@@ -1,63 +1,72 @@
-import { Component } from '@angular/core';
-import { Renderer2, ElementRef } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { Component } from "@angular/core";
+import { Renderer2, ElementRef } from "@angular/core";
+import { Platform } from "@ionic/angular";
+
+declare let cordova: any;
 
 @Component({
-	selector: 'app-home',
-	templateUrl: 'home.page.html',
-	styleUrls: ['home.page.scss'],
+    selector: "app-home",
+    templateUrl: "home.page.html",
+    styleUrls: ["home.page.scss"],
 })
 export class HomePage {
-	ua: apiRTC.UserAgent = null;
-	connectedSession: apiRTC.Session = null;
-	currentCall: apiRTC.Call = null;
-	localStream: apiRTC.Stream = null;
+    ua: apiRTC.UserAgent = null;
+    connectedSession: apiRTC.Session = null;
+    currentCall: apiRTC.Call = null;
+    localStream: apiRTC.Stream = null;
     remoteStream: apiRTC.Stream = null;
 
     onCall: boolean;
 
-	opponentId: any;
+    opponentId: any;
 
-	infoLabel: string;
+    infoLabel: string;
 
-    constructor(private renderer: Renderer2, private elementRef: ElementRef, public platform: Platform) {
+    constructor(
+        private renderer: Renderer2,
+        private elementRef: ElementRef,
+        public platform: Platform
+    ) {
         this.onCall = false;
-		this.infoLabel = 'Initializing...';
-    }
+        this.infoLabel = "Initializing...";
 
-    ngOnInit() {
-        const script = this.renderer.createElement('script');
-        script.src = 'https://cloud.apizee.com/apiRTC/apiRTC-latest.min.js';
-        script.onload = () => {
-          console.log('ngOnInit: apiRTC loaded');
-          this.startApp(); 
-        };
-        this.renderer.appendChild(this.elementRef.nativeElement, script);
+        this.platform.ready().then(() => {
+            if (this.platform.is('ios')) {
+                cordova.plugins.iosrtc.registerGlobals();
+            }
+            const script = this.renderer.createElement("script");
+            script.src = "https://cloud.apizee.com/apiRTC/apiRTC-latest.min.js";
+            script.onload = () => {
+                console.log("apiRTC loaded");
+                this.startApp();
+            };
+            this.renderer.appendChild(this.elementRef.nativeElement, script);
+        });
     }
 
     startApp() {
-        console.log('startApp');
+        console.log("startApp");
 
         apiRTC.setLogLevel(10);
 
         this.ua = new apiRTC.UserAgent({
-            uri: 'apzkey:myDemoApiKey',
+            uri: "apzkey:myDemoApiKey",
         });
 
-        var registerInformation = {
-            cloudUrl: 'https://cloud.apizee.com',
+        let registerInformation = {
+            cloudUrl: "https://cloud.apizee.com",
         };
 
         this.ua
             .register(registerInformation)
             .then((session) => {
-                console.log('User registered with session: ', session);
+                console.log("User registered with session: ", session);
 
                 session
-                    .on('contactListUpdate', (updatedContacts) => {
-                        console.log('contactListUpdate', updatedContacts);
+                    .on("contactListUpdate", (updatedContacts) => {
+                        console.log("contactListUpdate", updatedContacts);
                     })
-                    .on('incomingCall', (invitation) => {
+                    .on("incomingCall", (invitation) => {
                         invitation.accept().then((call) => {
                             this.currentCall = call;
                             this.setCallListeners();
@@ -65,88 +74,102 @@ export class HomePage {
                         });
                     });
                 this.connectedSession = session;
-                this.infoLabel = 'Your id: ' + session.getId();
+                this.infoLabel = "Your id: " + session.getId();
             })
             .catch(function (error) {
-                console.error('User agent registration failed', error);
+                console.error("User agent registration failed", error);
             });
+
+        this.checkPermissions();
     }
 
-	setCallListeners = () => {
-		this.currentCall
-			.on('localStreamAvailable', (stream) => {
-				console.log('localStreamAvailable', stream);
-				this.localStream = stream;
-				stream.addInDiv(
-					'local-stream',
-					'local-media',
-					{ height: '150px' },
-					false
-                );
-			})
-			.on('streamAdded', (stream) => {
-                console.log('streamAdded :', stream);
-                this.remoteStream = stream; 
+    setCallListeners = () => {
+        this.currentCall
+            .on("localStreamAvailable", (stream) => {
+                console.log("localStreamAvailable", stream);
+                this.localStream = stream;
                 stream.addInDiv(
-                    'remote-stream',
-                    'remote-media',
-                    { height: '150px' },
+                    "local-stream",
+                    "local-media",
+                    { height: "150px" },
                     false
                 );
-			})
-			.on('streamRemoved', (stream) => {
-				stream.removeFromDiv(
-					'remote-stream',
-					'remote-media'
+            })
+            .on("streamAdded", (stream) => {
+                console.log("streamAdded :", stream);
+                this.remoteStream = stream;
+                stream.addInDiv(
+                    "remote-stream",
+                    "remote-media",
+                    { height: "150px" },
+                    false
                 );
+            })
+            .on("streamRemoved", (stream) => {
+                stream.removeFromDiv("remote-stream", "remote-media");
                 this.remoteStream = null;
-			})
-			.on('userMediaError', (e) => {
-				console.error('userMediaError detected : ', e);
-				console.error('userMediaError detected with error : ', e.error);
-			})
-			.on('hangup', () => {
+            })
+            .on("userMediaError", (e) => {
+                console.error("userMediaError detected : ", e);
+                console.error("userMediaError detected with error : ", e.error);
+            })
+            .on("hangup", () => {
                 this.clearStreams();
-				this.currentCall = null;
-				this.onCall = false;
-			});
-	};
+                this.currentCall = null;
+                this.onCall = false;
+            });
+    };
 
-	onClickCall = () => {
-		if (!this.opponentId) {
-			console.warn('Opponent number is null');
-			return;
+    onClickCall = () => {
+        if (!this.opponentId) {
+            console.warn("Opponent number is null");
+            return;
         }
         if (this.onCall) {
-            console.warn('Call is already started');
-			return;
+            console.warn("Call is already started");
+            return;
         }
-		let contact = this.connectedSession.getOrCreateContact(this.opponentId);
-		let call = contact.call();
-		if (!call) {
-			console.warn('Cannot establish the call');
-			return;
-		}
-		this.currentCall = call;
-		this.setCallListeners();
-		this.onCall = true;
-	};
+        let contact = this.connectedSession.getOrCreateContact(this.opponentId);
+        let call = contact.call();
+        if (!call) {
+            console.warn("Cannot establish the call");
+            return;
+        }
+        this.currentCall = call;
+        this.setCallListeners();
+        this.onCall = true;
+    };
 
-	onClickHangUp = () => {
+    onClickHangUp = () => {
         this.clearStreams();
-		this.currentCall.hangUp();
-		this.currentCall = null;
-		this.onCall = false;
+        this.currentCall.hangUp();
+        this.currentCall = null;
+        this.onCall = false;
+    };
+
+    checkPermissions = () => {
+        cordova.plugins.diagnostic.requestRuntimePermissions(
+            (statuses) => {
+                console.log("Permissions statuses: ", statuses);
+            },
+            (error) => {
+                console.error("The following error occurred: ", error);
+            },
+            [
+                cordova.plugins.diagnostic.permission.CAMERA,
+                cordova.plugins.diagnostic.permission.RECORD_AUDIO,
+            ]
+        );
     };
 
     clearStreams = () => {
         if (this.localStream) {
-            this.localStream.removeFromDiv('local-stream', 'local-media');
+            this.localStream.removeFromDiv("local-stream", "local-media");
         }
         if (this.remoteStream) {
-            this.localStream.removeFromDiv('local-stream', 'local-media');
+            this.localStream.removeFromDiv("local-stream", "local-media");
         }
         this.localStream = null;
         this.remoteStream = null;
-    }
+    };
 }

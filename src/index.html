@@ -20,67 +20,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-    <script>
-        let iosrtc = null;
-        document.addEventListener('deviceready', function () {
-            if ((typeof device !== 'undefined') && device.platform == 'iOS') {
-                cordova.plugins.iosrtc.registerGlobals();
-                iosrtc = cordova.plugins.iosrtc;
-            }
-
-            function checkPermissionCallback(status, perm) {
-                var permissions = cordova.plugins.permissions;
-                if (!status.hasPermission) {
-                    var errorCallback = function () {
-                        console.warn('permission is not turned on', perm);
-                    };
-                    permissions.requestPermission(
-                        perm,
-                        function (status) {
-                            if (!status.hasPermission) {
-                                errorCallback();
-                            }
-                        },
-                        errorCallback
-                    );
-                }
-            }
-
-            if (cordova.plugins !== null && typeof cordova.plugins.permissions !== 'undefined' && cordova.plugins.permissions) {
-                var permissions = cordova.plugins.permissions;
-                permissions.hasPermission(
-                    permissions.CAMERA,
-                    function (status) {
-                        checkPermissionCallback(status, permissions.CAMERA);
-                    },
-                    null
-                );
-                permissions.hasPermission(
-                    permissions.RECORD_AUDIO,
-                    function (status) {
-                        checkPermissionCallback(status, permissions.RECORD_AUDIO);
-                    },
-                    null
-                );
-
-                permissions.hasPermission(
-                    permissions.READ_EXTERNAL_STORAGE,
-                    function (status) {
-                        checkPermissionCallback(status, permissions.READ_EXTERNAL_STORAGE);
-                    },
-                    null
-                );
-                permissions.hasPermission(
-                    permissions.ACCESS_NETWORK_STATE,
-                    function (status) {
-                        checkPermissionCallback(status, permissions.ACCESS_NETWORK_STATE);
-                    },
-                    null
-                );
-            }
-        }, false);
-
-    </script>
 </head>
 
 <body>

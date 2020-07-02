@@ -25,6 +25,28 @@ Then build from Xcode.
 
 You can test this app with our [web P2P call sample](https://dev.apirtc.com/demo/peertopeer_call/index.html) 
 
+### Android
+
+You should have Android Studio installed:
+https://ionicframework.com/docs/developing/android
+
+Then add Android platform compatible with your device Android version:
+
+eg: `ionic cordova platform add android@9.0.0`
+
+Add required permissions to your `platforms/android/app/src/main/AndroidManifest.xml`:
+```
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-permission android:name="android.permission.RECORD_AUDIO" />
+<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+```
+
+Then compile and deploy to the connected device:
+
+ionic cordova run android --device
+
+You can test this app with our [web P2P call sample](https://dev.apirtc.com/demo/peertopeer_call/index.html) 
+
 ## Requirements
 - Ionic 5+
 - iOS: `cordova-ios` 5.1.1+
@@ -32,7 +54,10 @@ You can test this app with our [web P2P call sample](https://dev.apirtc.com/demo
 - iOS: Xcode 11.5+
 - iOS: iOS 13.5+
 
-The app may work on lower versions, but don't report issues.
+The app may work on lower iOS versions, but don't report issues.
+
+- Android: app tested on following stack: Android 10 API 29 + cordova 9.0.0. It should work on lower version, just be sure that your stack (Android version, `cordova-android` verision etc) has API compatible parts
+
 
 ## ApiRTC key
 
