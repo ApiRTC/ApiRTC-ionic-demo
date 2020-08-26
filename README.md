@@ -48,6 +48,7 @@ Then compile and deploy app to the connected device:
 You can test the app with our [web P2P call sample](https://dev.apirtc.com/demo/peertopeer_call/index.html) 
 
 ## Requirements
+- apiRTC 4+
 - Ionic 5+
 - iOS: `cordova-ios` 5.1.1+
 - iOS: `cordova-plugin-iosrtc` 6.0.11 version temporary fixed due to degradations of its components ([details](https://github.com/cordova-rtc/cordova-plugin-iosrtc/issues/516)). Better check your `package.json` before rebuilding actions to verify you had this fixed version.
