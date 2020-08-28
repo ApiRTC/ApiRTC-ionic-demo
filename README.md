@@ -4,7 +4,7 @@
 First install Ionic:
 `npm install -g @ionic/cli`
 
-[Follow this link to get started with ionic](https://ionicframework.com/getting-started/) 
+[Follow this link to get started with Ionic](https://ionicframework.com/getting-started/) 
 
 ### iOS
 Install Xcode, see details:
