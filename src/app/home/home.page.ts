@@ -167,7 +167,7 @@ export class HomePage {
             this.localStream.removeFromDiv("local-stream", "local-media");
         }
         if (this.remoteStream) {
-            this.localStream.removeFromDiv("local-stream", "local-media");
+            this.remoteStream.removeFromDiv("remote-stream", "remote-media");
         }
         this.localStream = null;
         this.remoteStream = null;
