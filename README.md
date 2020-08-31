@@ -1,7 +1,7 @@
 # ApiRTC P2P call sample on Ionic (Cordova/Angular)
 
 ## Installation
-First install Ionic:
+First install Ionic:  
 `npm install -g @ionic/cli`
 
 [Follow this link to get started with Ionic](https://ionicframework.com/getting-started/) 
@@ -10,7 +10,7 @@ First install Ionic:
 Install Xcode, see details:
 https://ionicframework.com/docs/developing/ios
 
-Then run:
+Then run:  
 `ionic cordova prepare ios`
 
 During the execution accept installation requests.
@@ -30,9 +30,8 @@ You can test the app with our [web P2P call sample](https://dev.apirtc.com/demo/
 Install Android Studio, see details:
 https://ionicframework.com/docs/developing/android
 
-Then add Android platform compatible with used device Android version:
-
-eg: `ionic cordova platform add android@9.0.0`
+Install Android platform:  
+`ionic cordova platform add android`
 
 Add required permissions to `platforms/android/app/src/main/AndroidManifest.xml`:
 ```
@@ -41,8 +40,7 @@ Add required permissions to `platforms/android/app/src/main/AndroidManifest.xml`
 <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 ```
 
-Then compile and deploy app to the connected device:
-
+Then compile and deploy app to the connected device:  
 `ionic cordova run android --device`
 
 You can test the app with our [web P2P call sample](https://dev.apirtc.com/demo/peertopeer_call/index.html) 
