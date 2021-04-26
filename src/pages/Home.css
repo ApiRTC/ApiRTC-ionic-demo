@@ -1,0 +1,10 @@
+ion-input{
+    border: solid 1px #3880ff;
+ }
+
+#local-stream video {
+    height: 150px;
+}
+#remote-stream video {
+    height: 150px;
+}

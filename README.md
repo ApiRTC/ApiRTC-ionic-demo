@@ -1,61 +1,58 @@
-# ApiRTC P2P call sample on Ionic (Cordova/Angular)
+# ApiRTC P2P call sample on Ionic/Capacitor
 
 ## Installation
-First install Ionic:  
+
+Install Ionic:  
 `npm install -g @ionic/cli`
+
+Then:
+
+`npm i`
 
 [Follow this link to get started with Ionic](https://ionicframework.com/getting-started/) 
 
+## Build
+
+`ionic build`
 ### iOS
-Install Xcode, see details:
-https://ionicframework.com/docs/developing/ios
 
-Then run:  
-`ionic cordova prepare ios`
+[Read more about iOS deploying](https://capacitorjs.com/docs/ios)
 
-During the execution accept installation requests.
+Install Xcode and developer tools, then run:  
 
-Then run *.xcworkspace Xcode project from `platforms/ios` folder.
+`npx cap add ios`
+
+`npx cap sync`
+
+`npx cap open ios`
 
 Setup certificates inside *Xcode -> Signing & Capabilities* project section.
 
 Then build from Xcode.
 
-[Read more about iOS deploying](https://ionicframework.com/docs/v3/intro/deploying/)
-
 You can test the app with our [web P2P call sample](https://dev.apirtc.com/demo/peertopeer_call/index.html) 
 
 ### Android
 
-Install Android Studio, see details:
-https://ionicframework.com/docs/developing/android
+[Read more about Android deploying](https://capacitorjs.com/docs/android)
 
-Install Android platform:  
-`ionic cordova platform add android`
+Install Android Studio, then run:
 
-Add required permissions to `platforms/android/app/src/main/AndroidManifest.xml`:
-```
-<uses-permission android:name="android.permission.CAMERA" />
-<uses-permission android:name="android.permission.RECORD_AUDIO" />
-<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-```
+`npx cap add android`
 
-Then compile and deploy app to the connected device:  
-`ionic cordova run android --device`
+`npx cap sync`
+
+`npx cap open ios`
+
+Then build from Android Studio.
 
 You can test the app with our [web P2P call sample](https://dev.apirtc.com/demo/peertopeer_call/index.html) 
 
 ## Requirements
-Tested on:
-- apiRTC 4
-- Ionic 5
-- iOS: `cordova-ios` 6.1.0
-- iOS: `cordova-plugin-iosrtc` 6.0.13
-- iOS: Xcode 11.5
-- iOS: iOS 13.5
-- Android: cordova 9.0.0
 
-The app may work on lower iOS versions, but don't report issues.
+- apiRTC 4.4.10+
+- Android 10+ (may work on 8-9 versions)
+- iOS 14.5+
 
 ## ApiRTC key
 

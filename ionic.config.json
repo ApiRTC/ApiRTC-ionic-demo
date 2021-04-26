@@ -1,7 +1,7 @@
 {
-  "name": "ApiRTC",
+  "name": "ApiRTC-Ionic",
   "integrations": {
-    "cordova": {}
+    "capacitor": {}
   },
-  "type": "angular"
+  "type": "react"
 }
