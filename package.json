@@ -1,5 +1,6 @@
 {
   "name": "apirtc-ionic",
+  "displayName": "ApiRTC Ionic",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
