@@ -3,6 +3,7 @@
 ## Installation
 
 Install Ionic:  
+
 `npm install -g @ionic/cli`
 
 Then:
