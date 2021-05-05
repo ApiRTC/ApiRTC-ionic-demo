@@ -43,7 +43,7 @@ Install Android Studio, then run:
 
 `npx cap sync`
 
-`npx cap open ios`
+`npx cap open android`
 
 Then build from Android Studio.
 
