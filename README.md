@@ -1,4 +1,4 @@
-# ApiRTC P2P call sample on Ionic/Capacitor
+# ApiRTC on Ionic/Capacitor
 <p>
     Welcome on this ionic ApiRTC tutorial.
 </p>
